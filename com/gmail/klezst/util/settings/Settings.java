@@ -72,17 +72,28 @@ public class Settings
 	/**
 	 * Returns a value corresponding to setting.
 	 * @param setting, The setting to get the value of.
-	 * @param type, The class of the value to be returned.
+	 * @param type, The class of the value to be returned. NOTE: Do not user primitive data types
 	 * @return The value corresponding to setting, iff the setting exists and is of class type; otherwise null.
+	 * @throws IllegalArgumentException, Thrown, iff the setting doesn't exist (expected to only occur, iff you ignored an InvalidSettingsException) or the setting is of a different class than type.
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getSetting(Validatable setting, Class<T> type)
 	{
 		Object value = settings.get(setting);
-		if (value != null && value.getClass().equals(type))
+		if (value != null)
 		{
-			return (T)value;
+			if (value.getClass().equals(type))
+			{
+				return (T)value;
+			}
+			else
+			{
+				throw new IllegalArgumentException("The setting " + setting + " is not a " + type.getSimpleName() + ".");
+			}
 		}
-		return null;
+		else
+		{
+			throw new IllegalArgumentException("You ignored an InvalidSettingsException.");
+		}
 	}
 }
