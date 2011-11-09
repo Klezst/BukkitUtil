@@ -31,4 +31,13 @@ public interface Validatable
 	 * @return Required class of a settings value, should not be a primitive data type.
 	 */
 	public Class<?> getType();
+	
+	
+	/**
+	 * Called, iff a setting has been validated for existence and proper class. Allows further and custom validation. Must return the value to be stored for the setting or throw an InvalidSettingException.
+	 * @param value, The value to be further validated.
+	 * @return The value to be stored for the setting.
+	 * @throws InvalidSettingException, iff value is invalid.
+	 */
+	public Object validate(Object value);
 }

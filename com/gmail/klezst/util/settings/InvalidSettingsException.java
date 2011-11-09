@@ -39,9 +39,9 @@ public class InvalidSettingsException extends RuntimeException
 	}
 	
 	/**
-	 * Prints the exception to log. NOTE: The output is indented.
+	 * Prints the exception to log.
 	 * @param log, The Logger to print to.
-	 * @param prefix, A String that precedes each line printed.
+	 * @param prefix, A String that precedes each line printed. Should have a whitespace as last character, if not empty string.
 	 */
 	public void printExceptions(Logger log, String prefix)
 	{

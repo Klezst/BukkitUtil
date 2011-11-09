@@ -32,7 +32,7 @@ public class Settings
 	 * Validates and stores configuration settings, invalid settings will not be stored.
 	 * @param enums, the list of settings to validate and store.
 	 * @param config, the FileConfiguration that contains the settings.
-	 * @throws InvalidSettingsException, Thrown, iff any settings fail validation.
+	 * @throws InvalidSettingsException, Thrown, iff any settings fail validation. IllegalArgumentException, iff enums contains an object with a validate(Object) method that throws a ClassCastException; this likely means you tried to cast the argument to a class other than what the getType() method returns.
 	 */
 	public Settings(FileConfiguration config, Validatable[] enums)
 	{
@@ -46,18 +46,29 @@ public class Settings
 			// Validate
 			if (value == null)
 			{
-				exceptions.add(new InvalidSettingException("Must specify a value", key));
+				exceptions.add(new InvalidSettingException(key, "Must specify a value"));
 			}
 			else
 			{
 				Class<?> type = setting.getType();
 				if (value.getClass().equals(type))
 				{
-					this.settings.put(setting, value);
+					try
+					{
+						this.settings.put(setting, setting.validate(value));
+					}
+					catch (InvalidSettingException e)
+					{
+						exceptions.add(e);
+					}
+					catch (ClassCastException e)
+					{
+						throw new IllegalArgumentException("ClassCastException in validation(Object) method for " + setting + ". You probably tried casting the argument to a class other than " + type.getSimpleName());
+					}
 				}
 				else
 				{
-					exceptions.add(new InvalidSettingException("Must be a " + type.getSimpleName(), key));
+					exceptions.add(new InvalidSettingException(key, "Must be a " + type.getSimpleName()));
 				}
 			}
 		}

@@ -18,6 +18,8 @@
 
 package com.gmail.klezst.util.settings;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,19 +27,30 @@ public class InvalidSettingException extends RuntimeException
 {
 	private static final long serialVersionUID = 4084554841030860252L;
 	
-	private String exception;
+	private List<String> exceptions = new ArrayList<String>();
 	private String key;
 	
-	public InvalidSettingException(String exception, String key)
+	public InvalidSettingException(String key, String... exceptions)
 	{
 		super("Invalid config.yml @ " + key);
-		this.exception = exception;
 		this.key = key;
+		
+		for (String exception : exceptions)
+		{
+			this.exceptions.add(exception);
+		}
 	}
 	
-	public String getException()
+	public InvalidSettingException(String key, List<String> exceptions)
 	{
-		return exception;
+		super("Invalid config.yml @ " + key);
+		this.key = key;
+		this.exceptions = exceptions;
+	}
+	
+	public List<String> getExceptions()
+	{
+		return exceptions;
 	}
 	
 	public String getKey()
@@ -46,13 +59,17 @@ public class InvalidSettingException extends RuntimeException
 	}
 	
 	/**
-	 * Prints the exception to log. NOTE: The output is indented.
+	 * Prints the exception to log.
 	 * @param log, The Logger to print to.
-	 * @param prefix, A String that precedes each line printed.
+	 * @param prefix, A String that precedes each line printed. Should have a whitespace as last character, if not empty string.
 	 */
 	public void printException(Logger log, String prefix)
 	{
-		log.log(Level.SEVERE, prefix + "\t" + exception + ":");
-		log.log(Level.SEVERE, prefix + "\t\t" + key + ".");
+		log.log(Level.SEVERE, prefix + key + ":");
+		
+		for (String exception : exceptions)
+		{
+			log.log(Level.SEVERE, prefix + "\t" + exception + ".");
+		}
 	}
 }
