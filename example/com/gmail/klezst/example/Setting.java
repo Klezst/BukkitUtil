@@ -1,4 +1,22 @@
-package com.gmail.haloinverse.DynamicMarket;
+/*
+	SettingsValidation
+	Copyright (C) 2011 Klezst
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+package com.gmail.klezst.example;
 
 import com.gmail.klezst.util.settings.Validatable;
 import com.gmail.klezst.util.settings.Validation;
@@ -10,6 +28,7 @@ public enum Setting implements Validatable
 	ACCOUNT_FREE("default-shop-account.is-free", Boolean.class),
 	BRACKET_COLOR("text-color.bracket", String.class)
 	{
+		@Override
 		public Object validate(Object value) // This is a custom validation script that is run after the value has been validated to exist and that it is of the class specified by getType()
 		{
 			return Validation.getChatColor(this.getKey(), (String)value); // A library function provided to check if a String is a ChatColor
@@ -17,6 +36,7 @@ public enum Setting implements Validatable
 	},
 	COMMAND_COLOR("text-color.command", String.class)
 	{
+		@Override
 		public Object validate(Object value)
 		{
 			return Validation.getChatColor(this.getKey(), (String)value);
@@ -67,16 +87,19 @@ public enum Setting implements Validatable
 		this.type = type;
 	}
 	
+	@Override
 	public String getKey()
 	{
 		return key;
 	}
 	
+	@Override
 	public Class<?> getType()
 	{
 		return type;
 	}
 	
+	@Override
 	public Object validate(Object value)
 	{
 		return value;

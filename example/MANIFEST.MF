@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: Example
+Implementation-Version: 1.0
+Implementation-Vendor-Id: com.gmail.klezst
+Class-Path: Settings.jar lib/Settings.jar ../lib/Settings.jar ../Settings.jar
+Built-By: Klezst
+Specification-Title: Example
+Specification-Version: 1.0
