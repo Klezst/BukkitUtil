@@ -16,18 +16,19 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/*	Note that you can put the library inside your .jar,
+/*
+	Note that you can put the library inside your .jar,
 	you could put my compiled code inside your compiled code,
 	you could have Maven compile my code inside your code,
 	you could create a MANIFEST.MF with a classpath to the root directory of the server or lib folder
-	(the user would put my compiled code into any of those folder),
+	(the user would put my compiled code into any of those folders),
 	or you could FORCE the user to setup his server with a lib folder. // BAD idea.
 	
 	I suggest you use a MANIFEST.MF as shown in the example. When exporting from Eclipse on the fourth page
 	choose "use existing manifest from workspace" and select the MANIFEST.MF.
 	This will make Eclipse compile the MANIFEST.MF for you.
 	
-	Also note that this example has not been tested.
+	Also note that this example has not been tested, though a simliar one has.
 */
 package com.gmail.klezst.example;
 
@@ -56,8 +57,8 @@ public class Example extends JavaPlugin
     
     // Settings
     private Settings settings;
-    private String defaultShopAccount;
-    private boolean defaultShopAccountFree;
+    private Integer itemsMaxPerTransaction;
+    private boolean infiniteFunding;
     
     // Utilities
     private File directory;
@@ -96,8 +97,8 @@ public class Example extends JavaPlugin
     	}
     	
     	// Set settings.
-    	defaultShopAccount = getSetting(Setting.ACCOUNT_NAME, String.class);
-    	defaultShopAccountFree = getSetting(Setting.ACCOUNT_FREE, Boolean.class);
+    	infiniteFunding = getSetting(Setting.INFINITE_FUNDING, Boolean.class);
+		itemsMaxPerTransaction = getSetting(Setting.ITEMS_MAX_PER_TRANSACTION, Integer.class);
         
         log(Level.INFO, "Enabled."); // YaY, Success!
     }

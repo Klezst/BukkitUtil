@@ -37,7 +37,7 @@ public interface Validatable
 	 * Called, iff a setting has been validated for existence and proper class. Allows further and custom validation. Must return the value to be stored for the setting or throw an InvalidSettingException.
 	 * @param value, The value to be further validated.
 	 * @return The value to be stored for the setting.
-	 * @throws InvalidSettingException, iff value is invalid.
+	 * @throws InvalidSettingException or InvalidSettingsException, iff value is invalid.
 	 */
-	public Object validate(Object value);
+	public Object validate(Object value) throws InvalidSettingException, InvalidSettingsException;
 }

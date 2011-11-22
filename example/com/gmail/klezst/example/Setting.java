@@ -23,42 +23,45 @@ import com.gmail.klezst.util.settings.Validation;
 
 public enum Setting implements Validatable
 {
-	// Do not use primitive data types or null
-	ACCOUNT_NAME("default-shop-account.name", String.class),
-	ACCOUNT_FREE("default-shop-account.is-free", Boolean.class),
+	// Do not use primitive data types or null.
+	INFINITE_FUNDING("default-shop.infinite-funding", Boolean.class), // Boolean.class is the class of the type of data you expect to get from the config.yml.
+	ITEMS_MAX_PER_TRANSACTION("default-shop.items-max-per-transaction", Integer.class),
 	BRACKET_COLOR("text-color.bracket", String.class)
 	{
 		@Override
-		public Object validate(Object value) // This is a custom validation script that is run after the value has been validated to exist and that it is of the class specified by getType()
+		public Object validate(Object value) throws InvalidSettingsException // This is a custom validation script that is run after the value has been validated to exist and that it is of the class specified by getType().
 		{
-			return Validation.getChatColor(this.getKey(), (String)value); // A library function provided to check if a String is a ChatColor
+			return Validation.getChatColor(this.getKey(), (String)value); // A library function provided to check if a String is a ChatColor. NOTE: We return what we want stored for the setting. In this case we return the ChatColor by the name of value.
 		}
 	},
 	COMMAND_COLOR("text-color.command", String.class)
 	{
 		@Override
-		public Object validate(Object value)
+		public Object validate(Object value) throws InvalidSettingsException
 		{
 			return Validation.getChatColor(this.getKey(), (String)value);
 		}
 	},
 	ERROR_COLOR("text-color.error", String.class)
 	{
-		public Object validate(Object value)
+		@Override
+		public Object validate(Object value) throws InvalidSettingsException
 		{
 			return Validation.getChatColor(this.getKey(), (String)value);
 		}
 	},
 	NORMAL_COLOR("text-color.normal", String.class)
 	{
-		public Object validate(Object value)
+		@Override
+		public Object validate(Object value) throws InvalidSettingsException
 		{
 			return Validation.getChatColor(this.getKey(), (String)value);
 		}
 	},
 	PARAM_COLOR("text-color.param", String.class)
 	{
-		public Object validate(Object value)
+		@Override
+		public Object validate(Object value) throws InvalidSettingsException
 		{
 			return Validation.getChatColor(this.getKey(), (String)value);
 		}
@@ -73,9 +76,6 @@ public enum Setting implements Validatable
 	IMPORT_EXPORT_PATH("import-export.path", String.class),
 	TRANSACTION_LOG_FILE("transaction-log.file", String.class),
 	TRANSACTION_LOG_AUTOFLUSH("transaction-log.autoflush", Boolean.class),
-	SHOP_TAG("shop-tag", String.class),
-	ITEMS_MAX_PER_PURCHASE("items-max-per.purchase", Integer.class),
-	ITEMS_MAX_PER_SALE("items-max-per.sale", Integer.class),
 	DEBUG("debug", Boolean.class);
 	
 	private String key;

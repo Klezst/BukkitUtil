@@ -32,7 +32,7 @@ public class Settings
 	 * Validates and stores configuration settings, invalid settings will not be stored.
 	 * @param enums, the list of settings to validate and store.
 	 * @param config, the FileConfiguration that contains the settings.
-	 * @throws InvalidSettingsException, Thrown, iff any settings fail validation. IllegalArgumentException, iff enums contains an object with a validate(Object) method that throws a ClassCastException; this likely means you tried to cast the argument to a class other than what the getType() method returns.
+	 * @throws InvalidSettingsException, Thrown, iff any settings fail validation.
 	 */
 	public Settings(FileConfiguration config, Validatable[] enums)
 	{
@@ -61,6 +61,13 @@ public class Settings
 					{
 						exceptions.add(e);
 					}
+					catch (InvalidSettingsException e)
+					{
+						for (InvalidSettingException ex : e.getExceptions())
+						{
+							exceptions.add(ex);
+						}
+					}
 					catch (ClassCastException e)
 					{
 						throw new IllegalArgumentException("ClassCastException in validation(Object) method for " + setting + ". You probably tried casting the argument to a class other than " + type.getSimpleName());
@@ -73,7 +80,7 @@ public class Settings
 			}
 		}
 		
-		// Print invalid keys
+		// Print invalid keys.
 		if (exceptions.size() > 0)
 		{
 			throw new InvalidSettingsException(exceptions);
@@ -83,9 +90,8 @@ public class Settings
 	/**
 	 * Returns a value corresponding to setting.
 	 * @param setting, The setting to get the value of.
-	 * @param type, The class of the value to be returned. NOTE: Do not user primitive data types
+	 * @param type, The class of the value to be returned. NOTE: Do not user primitive data types.
 	 * @return The value corresponding to setting, iff the setting exists and is of class type; otherwise null.
-	 * @throws IllegalArgumentException, Thrown, iff the setting doesn't exist (expected to only occur, iff you ignored an InvalidSettingsException) or the setting is of a different class than type.
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getSetting(Validatable setting, Class<T> type)

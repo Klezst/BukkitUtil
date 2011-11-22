@@ -22,9 +22,15 @@ import org.bukkit.ChatColor;
 
 public class Validation
 {
+	/**
+	 * Returns the ChatColor corresponding to value. If no such ChatColor exists throws an InvalidSettingException
+	 * @param key
+	 * @param value
+	 * @return
+	 */
 	public static ChatColor getChatColor(String key, String value)
 	{
-		value = value.replaceFirst(" ", "_");
+		value = value.replace(" ", "_");
 		value = value.toUpperCase();
 		
 		ChatColor color;
@@ -41,7 +47,7 @@ public class Validation
 			}
 			examples = examples.substring(0, examples.length() - 2);
 			
-			throw new InvalidSettingException(key, "Must be a color. For example:", "\t" + examples);
+			throw new InvalidSettingException(key, "Must be a color. Valid colors are:", "\t" + examples);
 		}
 		return color;
 	}
