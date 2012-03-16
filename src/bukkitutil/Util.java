@@ -24,8 +24,6 @@ import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.material.MaterialData;
 
-import dynamicmarket.DynamicMarketException;
-
 /**
  * Provides miscellaneous convenience functions.
  * 
@@ -141,19 +139,19 @@ public class Util {
      * 
      * @return A Map<String, String> representing the properties args.
      * 
-     * @throws DynamicMarketException
+     * @throws IllegalArgumentException
      *             If an element of args is not a valid property.
      * 
      * @author Klezst
      */
     // TODO: This looks similar to Messaging.getContext(String... args).
     public static Map<String, String> getProperties(String... args)
-	    throws DynamicMarketException {
+	    throws IllegalArgumentException {
 	Map<String, String> properties = new HashMap<String, String>();
 	for (String arg : args) {
 	    String[] entry = arg.split(":");
 	    if (entry.length != 2) {
-		throw new DynamicMarketException(arg
+		throw new IllegalArgumentException(arg
 			+ " isn't a valid property!");
 	    }
 	    properties.put(entry[0].toLowerCase(), entry[1]);
