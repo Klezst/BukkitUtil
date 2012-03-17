@@ -19,9 +19,10 @@
 package bukkitutil;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
+
+import bukkitutil.util.Logging;
 
 /**
  * Provides JavaPlugins with a logging method.
@@ -29,7 +30,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  * @author Klezst
  */
 public abstract class BukkitUtilJavaPlugin extends JavaPlugin {
-    protected static final Logger logger = Logger.getLogger("Minecraft");
     private final String PREFIX;
 
     /**
@@ -63,11 +63,7 @@ public abstract class BukkitUtilJavaPlugin extends JavaPlugin {
      * 
      * @author Klezst
      */
-    public final void log(final Level level, final String... messages) {
-	for (String message : messages) {
-	    for (String line : message.split("\n")) {
-		logger.log(level, PREFIX + line);
-	    }
-	}
+    public void log(final Level level, final String... messages) {
+	Logging.prefixLog(level, PREFIX, messages);
     }
 }

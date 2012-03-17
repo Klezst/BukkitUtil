@@ -28,15 +28,15 @@ import org.bukkit.Bukkit;
 public class Economy {
     public static net.milkbowl.vault.economy.Economy economy = null;
     static {
-        try {
-            economy = Bukkit
-        	    .getServer().getServicesManager()
-        	    .getRegistration(net.milkbowl.vault.economy.Economy.class)
-        	    .getProvider();
-        } catch (NullPointerException e) {
-    	// Nothing needs to be done, since whatever method was called will throw a NullPointerException.
-        }
+	try {
+	    economy = Bukkit.getServer().getServicesManager()
+		    .getRegistration(net.milkbowl.vault.economy.Economy.class)
+		    .getProvider();
+	} catch (NullPointerException e) {
+	    // Nothing needs to be done, since whatever method was called will throw a NullPointerException.
+	}
     }
+
     /**
      * Changes an economy account's balance.
      * 
@@ -44,10 +44,10 @@ public class Economy {
      *            Amount to change the balance (can be negative).
      * @param name
      *            Name of the account.
-     *            
+     * 
      * @throws NullPointerException
      *             If the economy isn't loaded yet.
-     *             
+     * 
      * @author Klezst
      */
     public static void deltaBalance(double amount, String name)
@@ -60,12 +60,12 @@ public class Economy {
      * 
      * @param amount
      *            Amount to be formatted.
-     *            
+     * 
      * @return amount in display format.
      * 
      * @throws NullPointerException
      *             If the economy isn't loaded yet.
-     *             
+     * 
      * @author Klezst
      */
     public static String format(double amount) throws NullPointerException {
@@ -77,12 +77,12 @@ public class Economy {
      * 
      * @param name
      *            Name of the account.
-     *            
+     * 
      * @return Balance of the account called name.
      * 
      * @throws NullPointerException
      *             If the economy isn't loaded yet.
-     *             
+     * 
      * @author Klezst
      */
     public static int getBalance(String name) throws NullPointerException {
@@ -94,12 +94,12 @@ public class Economy {
      * 
      * @param name
      *            Name of the account.
-     *            
+     * 
      * @return Balance of the account called name in display format.
      * 
      * @throws NullPointerException
      *             If the economy isn't loaded yet.
-     *             
+     * 
      * @author Klezst
      */
     public static String getFormattedBalance(String name)
@@ -114,7 +114,7 @@ public class Economy {
      * 
      * @author Klezst
      */
-    public static boolean isLoaded() {
+    public static boolean isEnabled() {
 	if (economy == null) {
 	    return false;
 	}
