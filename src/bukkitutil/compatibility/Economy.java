@@ -26,11 +26,17 @@ import org.bukkit.Bukkit;
  * @author Klezst
  */
 public class Economy {
-    public static net.milkbowl.vault.economy.Economy economy = Bukkit
-	    .getServer().getServicesManager()
-	    .getRegistration(net.milkbowl.vault.economy.Economy.class)
-	    .getProvider(); // Will not throw NullPointerException, since Vault is a dependency.
-
+    public static net.milkbowl.vault.economy.Economy economy = null;
+    static {
+        try {
+            economy = Bukkit
+        	    .getServer().getServicesManager()
+        	    .getRegistration(net.milkbowl.vault.economy.Economy.class)
+        	    .getProvider();
+        } catch (NullPointerException e) {
+    	// Nothing needs to be done, since whatever method was called will throw a NullPointerException.
+        }
+    }
     /**
      * Changes an economy account's balance.
      * 

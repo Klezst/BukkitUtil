@@ -27,10 +27,16 @@ import org.bukkit.command.CommandSender;
  * @author Klezst
  */
 public class Permission {
-    public static net.milkbowl.vault.permission.Permission permission = Bukkit
-	    .getServer().getServicesManager()
-	    .getRegistration(net.milkbowl.vault.permission.Permission.class)
-	    .getProvider(); // Will not throw NullPointerException, since Vault is a dependency.
+    public static net.milkbowl.vault.permission.Permission permission = null;
+    static {
+        try {
+            permission = Bukkit.getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class).getProvider();
+        } catch (NullPointerException e) {
+            // We must catch this exception, because Java doesn't throw the NullPointerException to the method caller.
+            // Instead a NullPointerException will be thrown by the method they called.
+        }
+            	
+        }
 
     /**
      * Returns true, if sender has the permission node.
