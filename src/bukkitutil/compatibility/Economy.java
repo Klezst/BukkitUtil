@@ -88,7 +88,35 @@ public class Economy {
     public static int getBalance(String name) throws NullPointerException {
 	return (int) economy.getBalance(name);
     }
-
+    
+    /**
+     * Returns the singular version of the currency name.
+     * 
+     * @return the singular version of the currency name.
+     * 
+     * @throws NullPointerException
+     * 		   If the economy is not loaded yet.
+     * 
+     * @author Klezst
+     */
+    public static String getCurrencyNameSingular() {
+	return economy.currencyNameSingular();
+    }
+    
+    /**
+     * Returns the singular version of the currency name.
+     * 
+     * @return the singular version of the currency name.
+     * 
+     * @throws NullPointerException
+     * 		   If the economy is not loaded yet.
+     * 
+     * @author Klezst
+     */
+    public static String getCurrencyNamePlural() {
+	return economy.currencyNamePlural();
+    }
+    
     /**
      * Returns an economy account's balance in display format.
      * 

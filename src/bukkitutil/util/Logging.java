@@ -33,7 +33,7 @@ public class Logging {
      * @author Klezst
      */
     public static void log(final Level level, final String message) {
-	prefixLog(level, "", message);
+	logger.log(level, message);
     }
     
     /**
@@ -49,7 +49,7 @@ public class Logging {
     public static void prefixLog(final Level level, final String prefix, final String... messages) {
 	for (String message : messages) {
 	    for (String line : message.split("\n")) {
-		Logging.log(level, prefix + line);
+		log(level, prefix + line);
 	    }
 	}
     }
