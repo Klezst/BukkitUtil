@@ -31,6 +31,9 @@ import org.bukkit.command.CommandSender;
  * @author Klezst
  */
 public class Messaging {
+    private static final String TAG_OPEN = "{";
+    private static final String TAG_CLOSE = "}";
+    
     private static Map<String, String> chatColors = new HashMap<String, String>();
     static {
 	// Get the names of the ChatColors.
@@ -230,10 +233,10 @@ public class Messaging {
      * @param message
      *            The message to add color to.
      * 
+     * @return a String with color tags replaced with color codes.
+     * 
      * @throws NullPointerException
      *             If message is null.
-     * 
-     * @return a String with color tags replaced with color codes.
      * 
      * @author Klezst
      */
@@ -241,8 +244,31 @@ public class Messaging {
 	    throws NullPointerException {
 	String colored = message;
 	for (Entry<String, String> entry : chatColors.entrySet()) {
-	    colored = colored.replace("{" + entry.getKey() + "}", entry.getValue());
+	    colored = colored.replace(TAG_OPEN + entry.getKey() + TAG_CLOSE, entry.getValue());
 	}
 	return colored;
+    }
+    
+    /**
+     * Removes color codes and tags from a message.
+     * 
+     * @param message
+     * 		  The message to strip color from.
+     * 
+     * @return a String without color codes and tags.
+     * 
+     * @throws NullPointerException
+     * 		   If message is null.
+     * 
+     * @author Klezst
+     */
+    // TODO: Test this method.
+    public static String stripColor(final String message) {
+	String colorless = message;
+	for (Entry<String, String> entry : chatColors.entrySet()) {
+	    colorless = colorless.replace(TAG_OPEN + entry.getKey() + TAG_CLOSE, "");
+	    colorless = colorless.replace(entry.getValue(), "");
+	}
+	return colorless;
     }
 }

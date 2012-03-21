@@ -25,6 +25,7 @@ import org.bukkit.ChatColor;
  * 
  * @author Klezst
  */
+@Deprecated
 public class Validation {
     /**
      * Returns the ChatColor corresponding to value. If no such ChatColor exists throws an InvalidSettingException

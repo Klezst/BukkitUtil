@@ -23,6 +23,7 @@ package bukkitutil.configuration;
  * 
  * @author Klezst
  */
+@Deprecated
 public interface Validatable {
     /**
      * Expected to return a settings key.

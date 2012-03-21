@@ -29,6 +29,7 @@ import org.bukkit.configuration.file.FileConfiguration;
  * 
  * @author Klezst
  */
+@Deprecated
 public class Settings {
     private Map<Validatable, Object> settings = new HashMap<Validatable, Object>();
 

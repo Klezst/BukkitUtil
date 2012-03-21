@@ -26,6 +26,7 @@ import java.util.logging.Logger;
  * 
  * @author Klezst
  */
+@Deprecated
 public class InvalidSettingsException extends RuntimeException {
     private static final long serialVersionUID = -4808725946544992759L;
 
