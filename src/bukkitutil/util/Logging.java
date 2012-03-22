@@ -67,7 +67,7 @@ public class Logging {
     public static void prefixLog(final Level level, final String prefix, final String... messages) {
 	for (String message : messages) {
 	    for (String line : message.split("\n")) {
-		log(level, prefix + line);
+		logger.log(level, prefix + line);
 	    }
 	}
     }
