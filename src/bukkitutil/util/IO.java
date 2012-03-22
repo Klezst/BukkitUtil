@@ -47,6 +47,10 @@ public class IO {
      */
     public static void extract(JavaPlugin plugin, String... names)
 	    throws IOException, NullPointerException {
+	// Create directory.
+	File folder = plugin.getDataFolder();
+	folder.mkdirs();
+	
 	for (String name : names) {
 	    // Check, if file already exists.
 	    // throws NullPointerException if name is null.
