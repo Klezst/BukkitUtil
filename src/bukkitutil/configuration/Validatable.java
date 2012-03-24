@@ -23,16 +23,16 @@ package bukkitutil.configuration;
  * 
  * @author Klezst
  */
-@Deprecated
-public interface Validatable {
+
+public interface Validatable<E> {
     /**
-     * Expected to return a settings key.
+     * Expected to return a setting's keys.
      * 
-     * @return Key of a setting.
+     * @return the keys of a setting.
      * 
      * @author Klezst
      */
-    public String getKey();
+    public String[] getKeys();
 
     /**
      * Expected to return the required class of a settings value.
@@ -44,21 +44,17 @@ public interface Validatable {
     public Class<?> getType();
 
     /**
-     * Called, if a setting has been validated for existence and proper class. Allows further and custom validation. Must return the value to be stored for the setting or throw an
-     * InvalidSettingException.
+     * Called, if a setting has been validated for existence and proper class. Allows further and custom validation.
+     * Should be used to set the variables that will contain the setting.
      * 
+     * @param key
+     * 		  The key of the setting.
      * @param value
      *            The value to be further validated.
      * 
-     * @return The value to be stored for the setting.
-     * 
-     * @throws InvalidSettingException
-     *             If value is invalid.
-     * @throws InvalidSettingsException
-     *             If value is invalid.
+     * @return Null, if value was a valid setting; otherwise, a String representing errors.
      * 
      * @author Klezst
      */
-    public Object validate(Object value) throws InvalidSettingException,
-	    InvalidSettingsException;
+    public String set(String key, E value);
 }

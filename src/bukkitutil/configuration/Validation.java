@@ -19,13 +19,13 @@
 package bukkitutil.configuration;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.file.FileConfiguration;
 
 /**
  * Provides convenience functions for use with validating settings.
  * 
  * @author Klezst
  */
-@Deprecated
 public class Validation {
     /**
      * Returns the ChatColor corresponding to value. If no such ChatColor exists throws an InvalidSettingException
@@ -42,7 +42,7 @@ public class Validation {
      */
     // TODO: Accept color codes.
     public static ChatColor getChatColor(String key, String value)
-	    throws InvalidSettingException {
+	    throws IllegalArgumentException {
 	value = value.replace(" ", "_");
 	value = value.toUpperCase();
 
@@ -56,9 +56,55 @@ public class Validation {
 	    }
 	    examples = examples.substring(0, examples.length() - 2);
 
-	    throw new InvalidSettingException(key,
-		    "Must be a color. Valid colors are:", "\t" + examples);
+	    throw new IllegalArgumentException(key
+		    + ": Must be a color. Valid colors are:\t" + examples);
 	}
 	return color;
+    }
+
+    /**
+     * Validates and stores configuration settings, invalid settings will not be stored.
+     * 
+     * @param enums
+     *            The settings to validate and store.
+     * @param config
+     *            The FileConfiguration that contains the settings.
+     * 
+     * @throws InvalidSettingsException
+     *             Thrown, if any settings fail validation.
+     * 
+     * @author Klezst
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> String validate(FileConfiguration config,
+	    Validatable<T>[] enums) {
+	String invalid = "";
+	for (Validatable<T> setting : enums) {
+	    for (String key : setting.getKeys()) {
+		Object value = config.get(key);
+		
+		// Validate
+		if (value == null) {
+		    invalid += key + ": Must specify a value\n";
+		} else {
+		    Class<?> type = setting.getType();
+		    if (value.getClass().equals(type)) {
+			String errors = null;
+			try {
+			    errors = setting.set(key, (T)value);
+			} catch (ClassCastException e) {
+			    throw new IllegalArgumentException("Programmer error:\n\tYou either caused a ClassCastException, or getType() returns a different class than the type parameter you passed to Validatable.");
+			}
+			if (errors != null && !errors.isEmpty()) {
+			    invalid += errors + "\n";
+			}
+		    } else {
+			invalid += key + ": Must be a " + type.getSimpleName() + "\n";
+		    }
+		}
+	    }
+	}
+
+	return invalid;
     }
 }
