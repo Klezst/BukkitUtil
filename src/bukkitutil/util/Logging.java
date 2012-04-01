@@ -21,13 +21,15 @@ package bukkitutil.util;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
+
 /**
  * Provides convenience functions for logging.
  * 
  * @author Klezst
  */
 public class Logging {
-    private static final Logger logger = Logger.getLogger("Minecraft");
+    private static final Logger logger = Bukkit.getLogger();
     
     /**
      * Returns the logger used for logging.

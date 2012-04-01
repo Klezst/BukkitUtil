@@ -18,6 +18,8 @@
 
 package bukkitutil.configuration;
 
+import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -61,7 +63,7 @@ public class Validation {
 	}
 	return color;
     }
-
+    
     /**
      * Validates and stores configuration settings, invalid settings will not be stored.
      * 
@@ -80,23 +82,26 @@ public class Validation {
 	    Validatable<T>[] enums) {
 	String invalid = "";
 	for (Validatable<T> setting : enums) {
-	    for (String key : setting.getKeys()) {
+	    for (Map.Entry<String, Class<?>> entry : setting.getTypes().entrySet()) {
+		String key = entry.getKey();
 		Object value = config.get(key);
 		
 		// Validate
 		if (value == null) {
 		    invalid += key + ": Must specify a value\n";
 		} else {
-		    Class<?> type = setting.getType();
+		    Class<?> type = entry.getValue();
 		    if (value.getClass().equals(type)) {
 			String errors = null;
 			try {
 			    errors = setting.set(key, (T)value);
 			} catch (ClassCastException e) {
 			    throw new IllegalArgumentException("Programmer error:\n\tYou either caused a ClassCastException, or getType() returns a different class than the type parameter you passed to Validatable.");
+			} catch (IllegalArgumentException e) {
+			    errors = e.getMessage();
 			}
 			if (errors != null && !errors.isEmpty()) {
-			    invalid += errors + "\n";
+			    invalid += key + ": " + errors + "\n";
 			}
 		    } else {
 			invalid += key + ": Must be a " + type.getSimpleName() + "\n";

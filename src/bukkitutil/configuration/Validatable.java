@@ -18,6 +18,8 @@
 
 package bukkitutil.configuration;
 
+import java.util.Map;
+
 /**
  * Represents a Class that can be validated.
  * 
@@ -26,26 +28,18 @@ package bukkitutil.configuration;
 
 public interface Validatable<E> {
     /**
-     * Expected to return a setting's keys.
+     * Expected to return a Map with keys of the settings' keys, and values of the settings' valid class.
      * 
-     * @return the keys of a setting.
-     * 
-     * @author Klezst
-     */
-    public String[] getKeys();
-
-    /**
-     * Expected to return the required class of a settings value.
-     * 
-     * @return Required class of a settings value, should not be a primitive data type.
+     * @return A Map containing the keys of the settings and their required classes.
      * 
      * @author Klezst
      */
-    public Class<?> getType();
+    public Map<String, Class<?>> getTypes();
 
     /**
      * Called, if a setting has been validated for existence and proper class. Allows further and custom validation.
      * Should be used to set the variables that will contain the setting.
+     * May optionally throw IllegalArgumentException containing the error message.
      * 
      * @param key
      * 		  The key of the setting.
