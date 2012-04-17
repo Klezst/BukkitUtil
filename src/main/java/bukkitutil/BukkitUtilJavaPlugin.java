@@ -38,19 +38,7 @@ public abstract class BukkitUtilJavaPlugin extends JavaPlugin {
      * @author Klezst
      */
     public BukkitUtilJavaPlugin() {
-	PREFIX = "";
-    }
-
-    /**
-     * Creates a LoggingJavaPlugin with a logging prefix.
-     * 
-     * @param prefix
-     *            The prefix to precede messages when logging.
-     * 
-     * @author Klezst
-     */
-    public BukkitUtilJavaPlugin(final String prefix) {
-	this.PREFIX = prefix + " ";
+	PREFIX = this.getClass().getName();
     }
 
     /**
@@ -65,15 +53,5 @@ public abstract class BukkitUtilJavaPlugin extends JavaPlugin {
      */
     public void log(final Level level, final String... messages) {
 	Logging.prefixLog(level, PREFIX, messages);
-    }
-    
-    @Override
-    public void onDisable() {
-	log(Level.INFO, "Disabled.");
-    }
-    
-    @Override
-    public void onEnable() {
-	log(Level.INFO, "Enabled.");
     }
 }
