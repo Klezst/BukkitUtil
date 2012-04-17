@@ -66,4 +66,14 @@ public abstract class BukkitUtilJavaPlugin extends JavaPlugin {
     public void log(final Level level, final String... messages) {
 	Logging.prefixLog(level, PREFIX, messages);
     }
+    
+    @Override
+    public void onDisable() {
+	log(Level.INFO, "Disabled.");
+    }
+    
+    @Override
+    public void onEnable() {
+	log(Level.INFO, "Enabled.");
+    }
 }

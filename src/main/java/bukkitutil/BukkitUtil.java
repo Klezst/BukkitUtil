@@ -18,14 +18,35 @@
 
 package bukkitutil;
 
+import java.io.IOException;
 import java.util.logging.Level;
 
-import bukkitutil.util.Logging;
+import org.bukkit.plugin.PluginManager;
 
-public class BukkitUtil {
-    private static final String PREFIX = "[BukkitUtil] ";
+import bukkitutil.util.IO;
+
+public class BukkitUtil extends BukkitUtilJavaPlugin {
+    public BukkitUtil() {
+	super("[BukkitUtil]");
+    }
     
-    public static void log(Level level, String... messages) {
-	Logging.prefixLog(level, PREFIX, messages);
+    public static void log(Level level, String message) {
+	log(level, message);
+    }
+    
+    @Override
+    public void onEnable() {
+	PluginManager pm = this.getServer().getPluginManager();
+	
+	// Extract resources.
+	try {
+		IO.extract(this, "LICENSE.txt");
+	} catch (IOException e) {
+		log(Level.SEVERE, "Error extracting resources!");
+		pm.disablePlugin(this);
+		return;
+	}
+	
+	super.onEnable();
     }
 }
