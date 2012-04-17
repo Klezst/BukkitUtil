@@ -1,6 +1,0 @@
-authors: [Klezst]
-depend: [Vault]
-description: Provides utility functions for plugins.
-main: bukkitutil.BukkitUtil
-name: BukkitUtil
-version: 1.0
