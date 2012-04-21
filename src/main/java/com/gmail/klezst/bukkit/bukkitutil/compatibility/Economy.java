@@ -16,7 +16,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bukkitutil.compatibility;
+package com.gmail.klezst.bukkit.bukkitutil.compatibility;
 
 import org.bukkit.Bukkit;
 

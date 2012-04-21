@@ -1,6 +1,6 @@
 authors: [Klezst]
 depend: [Vault]
 description: Provides utility functions for plugins.
-main: bukkitutil.BukkitUtil
+main: com.gmail.klezst.bukkit.bukkitutil.BukkitUtil
 name: BukkitUtil
 version: 1.0

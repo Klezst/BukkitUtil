@@ -16,7 +16,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bukkitutil.configuration;
+package com.gmail.klezst.bukkit.bukkitutil.configuration;
 
 import java.util.Map;
 

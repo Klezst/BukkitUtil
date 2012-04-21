@@ -16,31 +16,19 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bukkitutil;
+package com.gmail.klezst.bukkit.bukkitutil;
 
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
-
-import bukkitutil.util.Logging;
 
 /**
  * Provides JavaPlugins with a logging method.
  * 
  * @author Klezst
  */
-public abstract class BukkitUtilJavaPlugin extends JavaPlugin {
-    private final String PREFIX;
-
-    /**
-     * Creates a LoggingJavaPlugin.
-     * 
-     * @author Klezst
-     */
-    public BukkitUtilJavaPlugin() {
-	PREFIX = this.getClass().getName();
-    }
-
+public abstract class BukkitUtilJavaPlugin extends JavaPlugin { 
     /**
      * Logs messages.
      * 
@@ -50,8 +38,24 @@ public abstract class BukkitUtilJavaPlugin extends JavaPlugin {
      *            The messages to log.
      * 
      * @author Klezst
+     * 
+     * @throws NullPointerException,
+     * 		If level, messages, or an element of messages is null.
      */
     public void log(final Level level, final String... messages) {
-	Logging.prefixLog(level, PREFIX, messages);
+	Logger logger = this.getLogger();
+	for (String message : messages) {
+	    for (String line : message.split("\n")) {
+		logger.log(level, line);
+	    }
+	}
+    }
+    
+    public void onDisable() {
+	this.log(Level.INFO, "Disabled");
+    }
+    
+    public void onEnable() {
+	this.log(Level.INFO, "Enabled.");
     }
 }

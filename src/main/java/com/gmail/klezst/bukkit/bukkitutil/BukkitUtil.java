@@ -16,18 +16,12 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bukkitutil;
-
-import java.util.logging.Level;
+package com.gmail.klezst.bukkit.bukkitutil;
 
 public class BukkitUtil extends BukkitUtilJavaPlugin {
-    public static void log(Level level, String message) {
-	log(level, message);
-    }
-    
     @Override
     public void onEnable() {
-	// Extract resources.
+	// Save resources.
 	this.saveResource("LICENSE.txt", false);
 	
 	super.onEnable();

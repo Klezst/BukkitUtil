@@ -16,14 +16,11 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bukkitutil.compatibility;
-
-import java.util.logging.Level;
+package com.gmail.klezst.bukkit.bukkitutil.compatibility;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 
-import bukkitutil.BukkitUtil;
 
 /**
  * Controls communication with permissions plugins.
@@ -64,8 +61,6 @@ public class Permission {
 	try {
 	    return hasPermission(sender, node);
 	} catch (NullPointerException e) {
-	    BukkitUtil.log(Level.WARNING,
-		    "Vault does not have a permissions plugin enabled.");
 	    return sender.isOp();
 	}
     }

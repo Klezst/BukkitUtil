@@ -16,7 +16,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package bukkitutil.util;
+package com.gmail.klezst.bukkit.bukkitutil.util;
 
 /**
  * Provides convenience functions for casting strings to other classes.
