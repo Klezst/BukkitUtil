@@ -47,7 +47,11 @@ public class Economy {
      * @throws NullPointerException if the economy isn't loaded yet.
      */
     public static void deltaBalance(double amount, String name) throws NullPointerException {
-        economy.depositPlayer(name, amount);
+        if (amount > 0) {
+            economy.depositPlayer(name, amount);
+        } else {
+            economy.withdrawPlayer(name, amount);
+        }
     }
 
     /**
